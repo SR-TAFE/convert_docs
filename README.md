@@ -8,6 +8,9 @@ This repository contains two PowerShell scripts designed to assist organizations
 
 2. **Office File Format Converter**: This script automates the conversion of legacy Microsoft Office file formats (.doc, .xls, .ppt) to their current equivalents (.docx, .xlsx, .pptx).
 
+### Signing Note
+This script is not signed, which means you will need to run it as either unsigned or with a local signature added to it.  As such it should only be used in test environments, and is not production ready. Take a read of Microsoft's guidance onExecutionPolicy before making any changes and tread with care. https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.4
+
 ## Office File Format Converter
 
 ### Description
