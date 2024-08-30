@@ -43,11 +43,11 @@ This PowerShell script converts old Microsoft Office file formats (.doc, .ppt, .
 4. The script will process all files and display progress in the console.
 5. Once complete, check the `conversion_log.txt` file in the script's directory for detailed results.
 
-## Logging
+### Logging
 
 The script creates a log file named `conversion_log.txt` in the same directory as the script. This log contains information about each converted file and any errors encountered during the process.
 
-## Error Handling
+### Error Handling
 
 The script includes comprehensive error handling to manage issues such as:
 - Invalid directory selection
@@ -68,11 +68,11 @@ This script is released under the GNU General Public License v3.0. See the [LICE
 
 Contributions to improve the script are welcome. Please feel free to submit a Pull Request.
 
-## Disclaimer
+### Disclaimer
 
 Always ensure you have backups of your files before running any conversion process. While this script has been designed to be safe, unforeseen issues can occur.
 
-## Support
+### Support
 
 For bug reports or feature requests, please open an issue in the GitHub repository.
 
