@@ -8,7 +8,7 @@
 
 .NOTES
     File Name      : convert_office_files.ps1
-    Author         : [Your Name]
+    Author         : Ant Congdon
     Prerequisite   : PowerShell V3 or later, Microsoft Office (Word, Excel, and PowerPoint)
 
 .LICENSE
