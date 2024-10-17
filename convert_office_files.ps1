@@ -77,21 +77,21 @@ function Convert-OfficeFile {
     
     try {
         switch ($file.Extension.ToLower()) {
-            ".doc" {
+            {$_ -in ".doc", ".dot"} {
                 $newFileName += ".docx"
                 $doc = $wordApp.Documents.Open($file.FullName)
                 $doc.SaveAs([ref] $newFileName, [ref] 16) # 16 is the value for .docx format
                 $doc.Close()
                 Release-ComObject $doc
             }
-            ".xls" {
+            {$_ -in ".xls", ".xlt"} {
                 $newFileName += ".xlsx"
                 $workbook = $excelApp.Workbooks.Open($file.FullName)
                 $workbook.SaveAs($newFileName, 51) # 51 is the value for .xlsx format
                 $workbook.Close()
                 Release-ComObject $workbook
             }
-            ".ppt" {
+            {$_ -in ".ppt", ".pot"} {
                 $newFileName += ".pptx"
                 $presentation = $powerPointApp.Presentations.Open($file.FullName)
                 $presentation.SaveAs($newFileName, 24) # 24 is the value for .pptx format
@@ -141,7 +141,7 @@ try {
     # PowerPoint visibility is not set as it's not allowed
 
     # Get all .doc, .ppt, and .xls files in the specified directory
-    $files = @(Get-ChildItem -Path $sourceDir -Include *.doc, *.ppt, *.xls -Recurse)
+    $files = @(Get-ChildItem -Path $sourceDir -Include *.doc, *.dot, *.xls, *.xlt, *.ppt, *.pot -Recurse)
 
     $totalFiles = $files.Count
     $convertedFiles = 0
