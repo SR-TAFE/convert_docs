@@ -116,6 +116,100 @@ This PowerShell script scans Microsoft Office files (.doc, .ppt, and .xls) in a 
 - A summary in the console listing all files containing macros
 - A CSV file named `files_with_macros.csv` in the scanned directory, containing the full paths of all files with macros
 
+## Office Macro Security Scanner
+
+### Overview
+This PowerShell script analyzes Microsoft Office files (Word, Excel, and PowerPoint) for potentially malicious macro content. It scans files for known high-risk and low-risk patterns commonly associated with malicious macros and generates a detailed security report.
+
+### Features
+- Scans .docm, .xlsm, and .pptm files (including legacy .doc, .xls, .ppt formats)
+- Identifies high-risk patterns including:
+  - Shell commands and process operations
+  - Registry modifications
+  - File system operations
+  - Network communications
+  - Anti-analysis techniques
+  - Encryption and encoding
+  - Security software interference
+  - Persistence mechanisms
+- Generates CSV reports with risk assessments
+- Provides detailed pattern matching results
+- Supports batch processing of multiple files
+
+## Risk Analysis Table
+
+### Pattern Categories and Associated Risks
+
+| Pattern Category | Example Patterns | Risk Level | Security Impact | Common Usage |
+|-----------------|------------------|------------|-----------------|--------------|
+| Shell Commands | `Shell`, `WScript.Shell`, `PowerShell` | HIGH | • Command execution<br>• System modification<br>• Backdoor creation | • Process automation<br>• System administration |
+| File Operations | `FileSystemObject`, `Kill`, `Open`, `Binary` | HIGH | • Data theft<br>• File deletion<br>• Malware dropping | • Document management<br>• File backup<br>• Data export |
+| Registry Access | `RegRead`, `RegWrite`, `RegDelete` | HIGH | • Persistence<br>• System modification<br>• Security bypass | • Settings storage<br>• User preferences |
+| Network Operations | `URLDownloadToFile`, `XMLHTTP`, `WinHttp` | HIGH | • Data exfiltration<br>• Malware download<br>• C2 communication | • Web API integration<br>• Data updates |
+| Process Manipulation | `CreateProcess`, `Shell`, `Win32_Process` | HIGH | • Malware execution<br>• System compromise<br>• Privilege escalation | • Application launching<br>• System integration |
+| Anti-Analysis | `Application.Visible`, `DisplayAlerts`, `ScreenUpdating` | HIGH | • Detection evasion<br>• Analysis prevention | • UI optimization<br>• Performance improvement |
+| Encryption/Encoding | `Chr`, `Base64`, `XOR`, `Environ` | HIGH | • Code obfuscation<br>• Evasion technique | • Data protection<br>• String handling |
+| Security Tools | `AutoExec`, `Auto_Open`, `Document_Open` | HIGH | • Automatic execution<br>• User circumvention | • Document initialization<br>• Setup procedures |
+| Clipboard Access | `GetFromClipboard`, `SetClipboard` | MEDIUM | • Data interception<br>• Information theft | • Data transfer<br>• Copy/paste operations |
+| Document Modification | `VBProject`, `CodeModule`, `AddFromString` | MEDIUM | • Self-modification<br>• Code injection | • Template generation<br>• Code updates |
+| Email Operations | `Outlook.Application`, `MailItem`, `Send` | MEDIUM | • Data exfiltration<br>• Spam sending | • Email automation<br>• Notifications |
+| Form Controls | `UserForm`, `TextBox`, `CommandButton` | LOW | • User interaction<br>• Data input | • User interface<br>• Data entry |
+| Cell Operations | `Range`, `Cells`, `Selection` | LOW | • Content modification | • Data formatting<br>• Calculations |
+| Basic Functions | `Len`, `Mid`, `Left`, `Right` | LOW | • String manipulation | • Text processing<br>• Data validation |
+| Time/Date Functions | `Now`, `Date`, `Time` | LOW | • Timing operations | • Date calculations<br>• Scheduling |
+
+### Risk Level Definitions
+
+| Risk Level | Description | Recommended Action |
+|------------|-------------|-------------------|
+| HIGH | Patterns commonly associated with malicious activity | Immediate investigation required; Block execution unless explicitly authorized |
+| MEDIUM | Patterns that could be misused but have legitimate uses | Review context and purpose; Monitor usage |
+| LOW | Patterns typically associated with normal operations | Regular monitoring; No immediate action required |
+
+### Contextual Risk Factors
+
+| Factor | Description | Risk Multiplier |
+|--------|-------------|-----------------|
+| Pattern Combinations | Multiple high-risk patterns in single macro | Increases overall risk score |
+| Code Obfuscation | Unclear or intentionally obscured code | Significantly increases risk |
+| Auto-Execution | Macros that run automatically on document open | Increases risk level |
+| External References | Links to external files or resources | Increases risk level |
+| Origin | Source/author of the document | Contextual risk factor |
+
+### Detection Confidence Levels
+
+| Confidence Level | Criteria | False Positive Rate |
+|-----------------|----------|-------------------|
+| High | Multiple high-risk patterns with known malicious combinations | < 5% |
+| Medium | Individual high-risk patterns or suspicious combinations | 5-15% |
+| Low | Common patterns in unusual configurations | 15-30% |
+
+
+### Prerequisites
+- Windows PowerShell 5.1 or later
+- Microsoft Office installed (Word, Excel, PowerPoint)
+- Administrative privileges recommended
+- Office Trust Center settings configured:
+  - Trust access to the VBA project object model enabled
+  - Macro settings appropriately configured
+
+## Installation
+1. Download `Macros_Security_Scan.ps1`
+2. Place in desired directory
+3. Configure Office applications' Trust Center settings
+
+### Usage
+
+# Basic usage
+.\Macros_Security_Scan.ps1 -Path "C:\Documents"
+
+# Scan specific file
+.\Macros_Security_Scan.ps1 -Path "C:\Documents\suspicious.docm"
+
+# Specify custom output location
+.\Macros_Security_Scan.ps1 -Path "C:\Documents" -OutputPath "C:\Reports"
+
+
 ### License
 
 This project is licensed under the GNU General Public License v3.0.
