@@ -152,6 +152,61 @@ $highRiskPatterns = @(
     'DllImport',
     'Marshal',
     'InteropServices'
+        # Command & Control
+    'ActiveXObject',
+    'MSScriptControl',
+    'DDEInitiate',          # Dynamic Data Exchange
+    'DDEExecute',
+    'DDETerminate',
+    
+    # Evasion Techniques
+    'ThisDocument\.FullName', # Document self-referencing
+    'System\.Environment',
+    'PrivateProfileString',
+    'VBProject',
+    'Windows\.Hide',
+    
+    # Remote Access
+    'PSExec',
+    'WMI',
+    'Win32_Product',
+    'ManagementObject',
+    'RunAs',
+    
+    # Persistence Methods
+    'HKCU:\\Software\\Microsoft\\Office',
+    'VBAProject\.VBComponents',
+    'OnTime',
+    'AutoExec',
+    'Document_Open',
+    'Auto_Open',
+    
+    # Sandbox Detection
+    'GetVolumeInformation',
+    'EnumDisplaySettings',
+    'GlobalMemoryStatus',
+    'GetForegroundWindow',
+    
+    # Credential Access
+    'CredentialManager',
+    'LogonUser',
+    'NetUserEnum',
+    'SamAccountName',
+    
+    # Data Exfiltration
+    'ADODB\.Stream',
+    'MSXML2\.XMLHTTP',
+    'certutil',             # Often used for encoding/decoding
+    'Outlook\.Application',
+    
+    # Living Off The Land
+    'bitsadmin',
+    'mshta',
+    'cscript',
+    'wscript',
+    'cmd\.exe',
+    'powershell\.exe'
+
 )
 
 # Medium risk patterns - potentially concerning but may have legitimate uses
